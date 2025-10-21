@@ -1,6 +1,7 @@
 package main
 
 import ctn "../the-carton"
+import editor "scripts"
 
 cube_fbx := #load("./assets/models/cube.fbx")
 
@@ -30,6 +31,7 @@ main :: proc() {
 
 	cam := ctn.Camera {
 		position = {0, 0, -100},
+		update = editor.camera_update
 	}
 
 	scene := ctn.Scene {
