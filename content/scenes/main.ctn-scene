@@ -1,0 +1,16 @@
+{
+  entities: [
+	{
+      name: "cube",
+	  position: [0, 0, 0],
+	  mesh: {
+		name: "cube_mesh",
+        path: "./assets/models/cube.fbx",
+        material: {
+          vert: "./assets/shaders/default.vert",
+          frag: "./assets/shaders/default.frag",
+        }
+	  }
+	}
+  ]
+}
