@@ -4,7 +4,7 @@ import ctn "../../the-carton"
 import la "core:math/linalg"
 
 @(private="file")
-speed : f32 = 0.01
+speed : f32 = 0.1
 
 camera_update :: proc(this: ^ctn.Camera) {
 	if ctn.is_key_down(.LEFT_ALT) {
