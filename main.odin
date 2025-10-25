@@ -59,14 +59,6 @@ main :: proc() {
 		assert(false)		
 	}
 
-	// cube_mesh := ctn.register_mesh(cube_fbx)	
-	// cube_shader := ctn.register_shader("./assets/shaders/default.vert", "./assets/shaders/default.frag")
-	// ctn.attach_shader_to_material(&cube_mesh.material, cube_shader)
-	// cube := ctn.Entity {
-	// 	position = {0, 0, 0},
-	// 	mesh = &cube_mesh,
-	// }
-
 	scene := ctn.Scene {
 		entities = entities,
 		camera = cam,
