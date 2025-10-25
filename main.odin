@@ -27,34 +27,23 @@ main :: proc() {
 		update = editor.camera_update
 	}
 
-	entities := make([]ctn.Entity, 1)
-	meshes := make([]ctn.Mesh, 1)
+	entities: []ctn.Entity
+	meshes: []ctn.Mesh
 
 	args := os.args
 	if len(args) > 1 {
-		project_data, ok := os.read_entire_file_from_filename(args[1])		
-		assert(ok)
-		project_json, err := json.parse(project_data)
-		if err != nil {
-			log.fatal(err)
-			assert(false)
-		}
-		scene_path := project_json.(json.Object)["scene"].(json.String)
+		project := ctn.load_project_file(args[1])
+		scene_description := ctn.load_scene_file(project.scene)
 
-		scene_data: []u8
-		scene_data, ok = os.read_entire_file_from_filename(scene_path)
-		assert(ok)
-		scene_json: json.Value
-		scene_json, err = json.parse(scene_data)
-		if err != nil {
-			log.fatal(err)
-			assert(false)
+		entities = make([]ctn.Entity, len(scene_description.entities))
+		meshes = make([]ctn.Mesh, len(scene_description.entities))
+
+		for i in 0..<len(scene_description.entities) {
+			meshes[i] = ctn.register_mesh(scene_description.entities[i].mesh.path)
+			shader := ctn.register_shader(scene_description.entities[i].mesh.material.vert, scene_description.entities[i].mesh.material.frag)
+			ctn.attach_shader_to_material(&meshes[i].material, shader)
+			entities[i].mesh = &meshes[i]
 		}
-		entity_json := scene_json.(json.Object)["entities"].(json.Array)[0].(json.Object)
-		meshes[0] = ctn.register_mesh(entity_json["mesh"].(json.Object)["path"].(json.String))
-		shader := ctn.register_shader(entity_json["mesh"].(json.Object)["material"].(json.Object)["vert"].(json.String), entity_json["mesh"].(json.Object)["material"].(json.Object)["frag"].(json.String))
-		ctn.attach_shader_to_material(&meshes[0].material, shader)
-		entities[0].mesh = &meshes[0]
 	} else {
 		assert(false)		
 	}
