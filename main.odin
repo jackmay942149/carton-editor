@@ -40,13 +40,18 @@ main :: proc() {
 
 		for i in 0..<len(scene_description.entities) {
 			meshes[i] = ctn.register_mesh(scene_description.entities[i].mesh.path)
+
 			shader := ctn.register_shader(scene_description.entities[i].mesh.material.vert, scene_description.entities[i].mesh.material.frag)
 			ctn.attach_shader_to_material(&meshes[i].material, shader)
 			entities[i].mesh = &meshes[i]
+			entities[i].position = scene_description.entities[i].position
 		}
 	} else {
 		assert(false)		
 	}
+
+	entities[0].scale = [3]f32{1, 1, 1}
+	entities[1].scale = [3]f32{0.1, 0.1, 0.1}
 
 	scene := ctn.Scene {
 		entities = entities,
