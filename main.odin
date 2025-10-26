@@ -45,13 +45,22 @@ main :: proc() {
 			ctn.attach_shader_to_material(&meshes[i].material, shader)
 			entities[i].mesh = &meshes[i]
 			entities[i].position = scene_description.entities[i].position
+			entities[i].scale = scene_description.entities[i].scale
+			entities[i].id = i
 		}
 	} else {
 		assert(false)		
 	}
 
-	entities[0].scale = [3]f32{1, 1, 1}
-	entities[1].scale = [3]f32{0.1, 0.1, 0.1}
+	editor.light_components = make([]editor.Light_Component, len(entities))
+	editor.light_components[1].colour = {1.0, 0.0, 0.0}
+	editor.light_components[2].colour = {0.0, 1.0, 0.0}
+	editor.light_components[3].colour = {0.0, 0.0, 1.0}
+	editor.light_components[4].colour = {1.0, 1.0, 1.0}
+	entities[1].update = editor.light_update
+	entities[2].update = editor.light_update
+	entities[3].update = editor.light_update
+	entities[4].update = editor.light_update
 
 	scene := ctn.Scene {
 		entities = entities,
