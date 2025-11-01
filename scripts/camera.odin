@@ -9,8 +9,13 @@ speed : f32 = 0.1
 @(private="file")
 rot_speed: f32 = 0.001
 
+@(private)
+g_camera_position: [3]f32
+
 camera_update :: proc(this: ^ctn.Camera) {
 	assert(this != nil)
+
+	g_camera_position = this.position
 
 	if ctn.is_key_down(.LEFT_ALT) {
 		if ctn.is_key_down(.W) {

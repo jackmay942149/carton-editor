@@ -52,20 +52,22 @@ main :: proc() {
 		assert(false)		
 	}
 
-	editor.light_components = make([]editor.Light_Component, len(entities))
-	editor.light_components[1].colour = {1.0, 0.0, 0.0}
-	editor.light_components[2].colour = {0.0, 1.0, 0.0}
-	editor.light_components[3].colour = {0.0, 0.0, 1.0}
-	editor.light_components[4].colour = {1.0, 1.0, 1.0}
-	entities[1].update = editor.light_update
-	entities[2].update = editor.light_update
-	entities[3].update = editor.light_update
-	entities[4].update = editor.light_update
+	lights := make([]ctn.Light, 4) 
+	lights[0].colour = {1.0, 0.0, 0.0, 1.0}
+	lights[1].colour = {0.0, 1.0, 0.0, 1.0}
+	lights[2].colour = {0.0, 0.0, 1.0, 1.0}
+	lights[3].colour = {1.0, 0.0, 1.0, 1.0}
+	lights[0].position = {10.0, 2.0, 0.0}
+	lights[1].position = {-10.0, 2.0, 0.0}
+	lights[2].position = {0.0, 2.0, 10.0}
+	lights[3].position = {0.0, 2.0, -10.0}
 
+	
 	scene := ctn.Scene {
 		entities = entities,
 		camera = cam,
 		ui = ui,
+		lights = lights,
 	}
 
 	for !ctn.should_close_window() {
